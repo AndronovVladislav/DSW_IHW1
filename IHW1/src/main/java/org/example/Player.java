@@ -12,13 +12,13 @@ public class Player {
         gameField = newField;
         color = newColor;
     }
-    int getBestScore() {
+    protected int getBestScore() {
         return bestScore;
     }
-    void setBestScore() {
+    protected void setBestScore() {
         bestScore = Math.max(bestScore, estimateScore());
     }
-    int estimateScore() {
+    protected int estimateScore() {
         int result = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -30,11 +30,11 @@ public class Player {
         return result;
     }
 
-    char getColor() {
+    protected char getColor() {
         return color;
     }
 
-    ArrayList<String> getPossibleMoves(char color, char oppositeColor) {
+    protected ArrayList<String> getPossibleMoves(char color, char oppositeColor) {
         ArrayList<String> possibleMoves = new ArrayList<>();
         char[] possibleMove = new char[2];
 

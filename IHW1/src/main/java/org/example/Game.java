@@ -20,7 +20,7 @@ public class Game {
         opponent = new String();
         difficulty = new String();
     }
-    void start() {
+    protected void start() {
         while (true) {
             System.out.println("Choose opponent:");
             opponent = menu.nextLine();
@@ -38,7 +38,7 @@ public class Game {
         }
     }
 
-    void playerAgainstAI() {
+    private void playerAgainstAI() {
         int playerMove;
         ArrayList<String> possibleMoves;
 
@@ -218,7 +218,7 @@ public class Game {
         System.out.printf("Player2's best score: %d points.\n", playerSecond.getBestScore());
     }
 
-    public int doMove() {
+    protected int doMove() {
         String move;
         int returnCode;
         while (true) {

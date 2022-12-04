@@ -1,7 +1,7 @@
 package org.example;
 
 public class Field {
-    static final int deskSize = 8;
+    final int deskSize = 8;
     private final Cell[][] field = new Cell[deskSize][deskSize];
     private int emptyCells;
     Field () {
@@ -61,23 +61,23 @@ public class Field {
         System.out.println(Colors.ANSI_YELLOW + "    A  B  C  D  E  F  G  H" + Colors.ANSI_RESET);
     }
 
-    public char getColor(int cell) {
+    protected char getColor(int cell) {
         return field[cell / 10][cell % 10].getColor();
     }
 
-    public Cell getCell(int cell) {
+    protected Cell getCell(int cell) {
         return field[cell / 10][cell % 10];
     }
 
-    public void setCell(int cell, char color) {
+    protected void setCell(int cell, char color) {
         field[cell / 10][cell % 10].setColor(color);
     }
 
-    public int getDeskSize() {
+    protected int getDeskSize() {
         return deskSize;
     }
 
-    boolean badMoveCheck(int cell, char color, char oppositeColor) {
+    protected boolean badMoveCheck(int cell, char color, char oppositeColor) {
         boolean oppositeColorNear = false;
 
         if (cell > 77 || cell < 0 || cell % 10 > 7 || field[cell / 10][cell % 10].getColor() != 'o') {
@@ -88,8 +88,6 @@ public class Field {
         int upperBound = Math.max(Math.min((cell + 10) / 10, 7), 0);
         int leftBound = Math.min(Math.max(cell % 10 - 1, 0), 7);
         int rightBound = Math.max(Math.min(cell % 10 + 1, 7), 0);
-
-//        System.out.printf("%d %d %d %d\n", lowerBound, upperBound, leftBound, rightBound);
 
         for (int i = lowerBound; i < upperBound + 1; ++i) {
             for (int j = leftBound; j < rightBound + 1; ++j) {
@@ -140,7 +138,7 @@ public class Field {
         return !oppositeColorNear || !oppositeColorClosed;
     }
 
-    void recolorDesk(int cell, char color) {
+    protected void recolorDesk(int cell, char color) {
         boolean oppositeColorNotClosed = true;
 
         // up
@@ -196,7 +194,7 @@ public class Field {
         }
     }
 
-     boolean detectSameColorCell(int cell, int horizontalShift, int verticalShift, char color) {
+     protected boolean detectSameColorCell(int cell, int horizontalShift, int verticalShift, char color) {
         int currentCell = cell;
         boolean detectedSame = false;
         boolean detectedOpposite = false;
@@ -219,7 +217,7 @@ public class Field {
         return detectedSame && detectedOpposite;
     }
 
-    void recolorWay(int cell, int horizontalShift, int verticalShift, char color) {
+    private void recolorWay(int cell, int horizontalShift, int verticalShift, char color) {
         int currentCell = cell;
 
         while (((currentCell + horizontalShift) % 10 < 8) &&
@@ -232,11 +230,11 @@ public class Field {
         }
     }
 
-    public boolean isPossibleMove(int cell, char color, char oppositeColor) {
+    protected boolean isPossibleMove(int cell, char color, char oppositeColor) {
         return !badMoveCheck(cell, color, oppositeColor);
     }
 
-    public boolean noHasPossibleMove(char color, char oppositeColor) {
+    protected boolean noHasPossibleMove(char color, char oppositeColor) {
         for (int i = 0; i < deskSize; i++) {
             for (int j = 0; j < deskSize; j++) {
                 if (isPossibleMove(10 * i + j, color, oppositeColor)) {
@@ -247,15 +245,15 @@ public class Field {
         return true;
     }
 
-    void decreaseEmptyCells() {
+    protected void decreaseEmptyCells() {
         --emptyCells;
     }
 
-    int getEmptyCells() {
+    protected int getEmptyCells() {
         return emptyCells;
     }
 
-    void cancelMove() {
+    protected void cancelMove() {
         for (int i = 0; i < deskSize; i++) {
             for (int j = 0; j < deskSize; j++) {
                 if (field[i][j].stepBack()) {
@@ -265,7 +263,7 @@ public class Field {
         }
     }
 
-    void updateHistory() {
+    protected void updateHistory() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 field[i][j].addToHistory(field[i][j].getColor());

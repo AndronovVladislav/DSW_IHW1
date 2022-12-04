@@ -16,19 +16,19 @@ public class Cell {
         cellHistory.push(color);
     }
 
-    char getColor() {
+    protected char getColor() {
         return color;
     }
 
-    void setColor(char newColor) {
+    protected void setColor(char newColor) {
         color = newColor;
     }
 
-    void addToHistory(char color) {
+    protected void addToHistory(char color) {
         cellHistory.push(color);
     }
 
-    boolean stepBack() {
+    protected boolean stepBack() {
         boolean res = color != 'o';
         if (cellHistory.size() >= 2) {
             cellHistory.pop();

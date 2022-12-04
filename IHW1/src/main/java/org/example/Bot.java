@@ -9,11 +9,11 @@ public class Bot {
          color = newColor;
      }
 
-     char getColor() {
+     protected char getColor() {
          return color;
      }
 
-     void doMove(int depth) {
+    protected void doMove(int depth) {
         double maxSum = -100;
         double currentSum;
         int iMax = 0;
@@ -65,7 +65,7 @@ public class Bot {
         gameField.recolorDesk(10 * iMax + jMax, 'W');
     }
 
-    double baseEstimator(int cell) {
+    private double baseEstimator(int cell) {
         double result = 0;
 
         // up
@@ -111,7 +111,7 @@ public class Bot {
         return result;
     }
 
-    double estimateWay(int cell, int horizontalShift, int verticalShift) {
+    private double estimateWay(int cell, int horizontalShift, int verticalShift) {
         int currentCell = cell;
         double result = 0;
 
@@ -133,7 +133,7 @@ public class Bot {
         return result;
     }
 
-    double estimateCell(int cell) {
+    private double estimateCell(int cell) {
         double result = 0;
 
         if (!gameField.badMoveCheck(cell, 'W', 'B')) {

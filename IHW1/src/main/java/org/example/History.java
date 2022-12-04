@@ -9,19 +9,19 @@ public class History {
         history = new Stack<>();
     }
 
-    void pop() {
+    protected void pop() {
         history.pop();
     }
 
-    char top() {
+    protected char top() {
         return history.peek();
     }
 
-    void push(char newColor) {
+    protected void push(char newColor) {
         history.push(newColor);
     }
 
-    int size() {
+    protected int size() {
         return history.size();
     }
 }
